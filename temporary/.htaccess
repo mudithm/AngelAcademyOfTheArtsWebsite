@@ -1,0 +1,29 @@
+# Redirect everything in this directory to "good.html"
+# Enable Rewriting
+RewriteEngine on
+ 
+# Rewrite user URLs
+#   Input:  index/NAME/
+#   Output: index.php?id=NAME
+
+#Test the below when we are running off an official server. Gotta scare dem script kiddies.
+#RewriteCond %{HTTP_REFERER} !^http://example\.net/?.*$ [NC]
+#RewriteCond %{HTTP_REFERER} !^http://example\.com/?.*$ [NC]
+#RewriteRule \.(gif|jpe?g|png|bmp|mp4)$ www/ycpc.com/img/scary-face.jpg [R,NC]
+
+
+RewriteRule ^instructor/(\w+)/?$ instructor.php
+RewriteRule ^artwork/(\w+)/?$ artwork.php
+RewriteRule ^about/(\w+)/?$ about.php
+
+RewriteRule ^class/(\w+)/?$ class.php
+RewriteRule ^show/(\w+)/?$ show.php
+
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+#Custom HTML
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* error.html.php [L]
